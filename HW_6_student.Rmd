@@ -1,8 +1,9 @@
 ---
 title: "HW 6"
-author: "Student Name"
+author: "Mason Boyles"
 date: "1/21/2024"
-output: 
+output:
+  pdf_document: default
   html_document:
     number_sections: true
 ---
@@ -10,7 +11,8 @@ output:
 #
 What is the difference between gradient descent and *stochastic* gradient descent as discussed in class?  (*You need not give full details of each algorithm.  Instead you can describe what each does and provide the update step for each.  Make sure that in providing the update step for each algorithm you emphasize what is different and why.*)
 
-*Student Input*
+Gradient descent follows the negative gradient to find minima, and at every step it uses the function: $\theta_{i+1} = \theta_i - \alpha\nabla f(\theta_i, X, Y)$.
+Stochastic gradient descent is used to overcome the issue of being trapped in local rather than global minima. To accomplish this, at every step, we use a random subset of the data rather than the entire data set $X_{i'}, Y_{i'}$ so that it can escape local minima and converge to a global optimal solution quicker. Thus is has a similar update step of $\theta_{i+1} = \theta_i - \alpha\nabla f(\theta_i, X_{i'}, Y_{i'})$.
 
 #
 Consider the `FedAve` algorithm.  In its most compact form we said the update step is $\omega_{t+1} = \omega_t - \eta \sum_{k=1}^K{\frac{n_k}{n}\nabla F_k(\omega_t)}$.  However, we also emphasized a more intuitive, yet equivalent, formulation given by $\omega_{t+1}^k=\omega_t-\eta\nabla F_k(\omega_t); w_{t+1} = \sum_{k=1}^K{\frac{n_k}{n}w_{t+1}^k}$.  
@@ -18,22 +20,23 @@ Consider the `FedAve` algorithm.  In its most compact form we said the update st
 Prove that these two formulations are equivalent.  
 (*Hint: show that if you place $\omega_{t+1}^k$ from the first equation (of the second formulation) into the second equation (of the second formulation), this second formulation will reduce to exactly the first formulation.*) 
 
-*Student Input*
+$w_{t+1} = \sum_{k=1}^K{\frac{n_k}{n}(w_{t}-\eta\nabla F_k(w_t)}) = w_t\sum_{k=1}^K{\frac{n_k}{n} - \eta\sum_{k=1}^k((\frac{n_k}{n})\nabla F_k(w_t)}) = w_t - \eta\sum_{k=1}^k((\frac{n_k}{n})\nabla F_k(w_t))$
 
 #
 Now give a brief explanation as to why the second formulation is more intuitive.  That is, you should be able to explain broadly what this update is doing.  
 
-*Student Input*
+The second formulation makes it more clear that each local client takes one step of size $\eta$ using their local data and then the server takes a weighted acverage of these local models so that we can make a global update.
 
 # 
 Prove that randomized-response differential privacy is $\epsilon$-differentially private.  
 
-*Student Input*
+This can be proven by the formula: $\frac{P[A(D_1) \in S]}{P[A(D_2) \in S]} \leq e^\epsilon$. Here we can prove RR Differential privacy is $\epsilon $-differentially private where $\epsilon = ln(3)$. Consider S = Yes:
+$\frac{P[A(Yes) = Yes]}{P[A(No) = Yes]}$ same as Probability(output = yes, and input yes) / Probability(output = yes, but input is No) which is equal to $\frac{\frac{3}{4}}{\frac{1}{4}} = 3 = e^{ln(3)}$. Similarly for S=No: $\frac{P[A(No) = Yes]}{P[A(Yes) = Yes]} = 1/3$ so  $\frac{P[A(D_1) \in S]}{P[A(D_2) \in S]} \leq e^{ln(3)}$.
 
 # 
 Define the harm principle.  Then, discuss whether the harm principle is *currently* applicable to machine learning models.  (*Hint: recall our discussions in the moral philosophy primer as to what grounds agency.  You should in effect be arguing whether ML models have achieved agency enough to limit the autonomy of the users of said algorithms.* )
 
-*Student Input*
+Essentially the harm principle states that personal autonomy stops when it reaches the point that exercising that autonomy causes harm to another moral agent meaning you can do what you want as long as it doesn't hurt other people. In my opinion, ML models have no achieved agency enough to limit the autonomy of the users of said algorithms because they are just tools designed and trained by humans and do not have any true consciousness. This goes against our definition of autonomy because they are not acting out of free will, they are simply executing an algorithm programmed onto them.
 
 
 
